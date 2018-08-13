@@ -3,7 +3,7 @@ In progress development of an application to suggest books by international and 
 
 ### progress
 1. Scraping book lists from Goodreads:
-- scrape_goodreads_lists.sh is a  bash script that calls a package to download book data from Goodreads based on Listopia lists.  The following lists are used:
+- scrape_goodreads_lists.sh is a  bash script that calls a package to download book data from Goodreads based on Listopia lists (https://github.com/havanagrawal/GoodreadsScraper.git).  The following lists are used:
 
 <b>minority and international lists:</b>
 <li>12716.Speculative_Fiction_by_Authors_of_Color</li>
