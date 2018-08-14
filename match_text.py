@@ -42,6 +42,7 @@ diverse_data.iloc[0]
 #non_div_tfidf = vectorizer.fit_transform(nondiv_descriptions)
 #test_similar = linear_kernel(non_div_tfidf[0:1], tfidf).flatten()
 
+
 nondiv_ex = str(non_diverse['description'][0])
 descriptions.insert(0,nondiv_ex)
 #desc_ex = nondiv_ex + descriptions
@@ -52,3 +53,4 @@ cosine_test[related_docs_test]
 related_docs_test
 descriptions[1]
 descriptions[211]
+
