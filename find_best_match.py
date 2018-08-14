@@ -7,7 +7,11 @@ Created on Tue Aug 14 13:14:05 2018
 @purpose: match a given description to deescriptions of diverse books
 """
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+
 def find_best_match(to_match, diverse_desc):
+    vectorizer = TfidfVectorizer()
     to_match = str(to_match)
     diverse_desc.insert(0,to_match)
     #desc_ex = nondiv_ex + descriptions
@@ -16,4 +20,5 @@ def find_best_match(to_match, diverse_desc):
     best_idx = cosine_sim.argsort()[-2:-1]
     cosine_sim[best_idx]
 
-    return diverse_desc[int(best_idx)]
+    #return diverse_desc[int(best_idx)]
+    return best_idx
