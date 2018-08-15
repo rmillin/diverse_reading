@@ -5,12 +5,12 @@ Created on Tue Aug 14 14:07:24 2018
 
 @author: pamela
 
-Returns the description of a book (input is book name) as a string
+Returns the description of a book (input is book name) as a dataframe
 """
 
 #from api_request import request
 import requests
-#import pandas as pd
+import pandas as pd
 from bs4 import BeautifulSoup as bs
 
 def search_name(name):
@@ -30,6 +30,9 @@ def search_id(gr_id):
 
     id_soup = bs(id_search.content, features='xml')
     book_desc = id_soup.findAll('description')[0].get_text()
+
+    # put into a dataframe to be consistent with the diverse book list
+    book_desc = pd.DataFrame(book_desc, columns = ['description']
     
     return book_desc
     
