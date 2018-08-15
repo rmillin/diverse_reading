@@ -22,7 +22,7 @@ def standardize_description(data):
     return data
     
 
-def lemmatize_description(data)
+def lemmatize_description(data):
 
     import nltk
     import re
