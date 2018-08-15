@@ -7,7 +7,7 @@ the summaries
 """
 
 import pandas as pd
-import preprocessing as preproc
+from preprocessing import *
 
 savename = 'data/diverse_books_merged.json'
 
@@ -16,4 +16,4 @@ df = pd.read_json(savename)
 fpath = '/Users/rmillin/Documents/Insight/diverse-reading/data'
 fname = 'cleaned_diverse_books.json'
 
-book_descriptions(df, fpath=None, fname=None)
+process_descriptions(df, fpath, fname)
