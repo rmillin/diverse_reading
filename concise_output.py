@@ -7,6 +7,8 @@ Created on Tue Aug 14 15:45:50 2018
 """
 
 def  concise_output(matches):
+    import pandas as pd
+    
     out = pd.DataFrame()
     out['Title'] = matches['title']
     out['Author'] = matches['author']

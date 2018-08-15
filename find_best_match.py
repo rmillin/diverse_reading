@@ -17,7 +17,7 @@ def find_best_match(to_match, diverse_desc):
     #desc_ex = nondiv_ex + descriptions
     tfidf = vectorizer.fit_transform(diverse_desc)
     cosine_sim = linear_kernel(tfidf[0:1], tfidf).flatten()
-    best_idx = cosine_sim.argsort()[-2:-1]
+    best_idx = cosine_sim.argsort()[-4:-1]
     cosine_sim[best_idx]
 
     #return diverse_desc[int(best_idx)]
