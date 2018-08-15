@@ -5,9 +5,13 @@ Created on Tue Aug 14 15:30:46 2018
 
 @author: pamela
 """
+
+import preprocessing
+import matching
+
 test_name = 'Moby Dick'
-desc_input = search_id(search_name(test_name))
-diverse_desc = book_descriptions(diverse_data)
+desc_input = matching.search_id(matching.search_name(test_name))
+diverse_desc = matching.book_descriptions(diverse_data)
 match = find_best_match(desc_input, diverse_desc)
 
 diverse_data.iloc[match]

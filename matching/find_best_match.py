@@ -9,12 +9,13 @@ Created on Tue Aug 14 13:14:05 2018
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
+import preprocessing
 
 def find_best_match(to_match, diverse_desc):
     vectorizer = TfidfVectorizer()
     to_match = str(to_match)
     diverse_desc.insert(0,to_match)
-    diverse_desc_clean = parse_description(diverse_desc)
+    diverse_desc_clean = preprocessing.preprocessing(diverse_desc)
     #desc_ex = nondiv_ex + descriptions
     tfidf = vectorizer.fit_transform(diverse_desc)
     cosine_sim = linear_kernel(tfidf[0:1], tfidf).flatten()
