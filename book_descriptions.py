@@ -10,11 +10,13 @@ Created on Tue Aug 14 13:26:55 2018
 
 def book_descriptions(df):
     
-    descriptions = list(df['description'])
-    idx=0
-    for description in descriptions:
-            descriptions[idx] = str(description)
-            idx += 1
             
-    return descriptions
+    # clean the summaries
+    data = standardize_description(df)
+
+    # lemmatize the summaries
+    data = lemmatize_description(data)
+
+    # return as a list of descriptions
+    return data['description'].tolist()
 

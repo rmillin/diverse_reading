@@ -4,7 +4,9 @@ def clean_description(description):
     This function will remove repeated sentences from a description.
 
     input: a description from "goodreads", consisting of a list of strings
-    ouptut: the same description with repeated cells eliminated
+    or a single string
+    ouptut: if a list, the same description with repeated cells eliminated
+    if a string, outputs the original string
     """
     if isinstance(description,list):
         ind2 = 0

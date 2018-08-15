@@ -4,6 +4,8 @@
 Created on Tue Aug 14 14:07:24 2018
 
 @author: pamela
+
+Returns the description of a book (input is book name) as a string
 """
 
 #from api_request import request

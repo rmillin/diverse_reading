@@ -1,4 +1,4 @@
-def parse_description(data):
+def standardize_description(data):
 
     """
     This function will remove repeated sentences from the description, remove
@@ -10,14 +10,22 @@ def parse_description(data):
 
     """
 
-    # add into find_best_match
-
     import pandas as pd
-    import numpy as np
+    from clean_description import clean_description
+
+    # clean the summaries
+    data['description'] = data['description'].apply(clean_description)
+    
+    # flatten summary lists into strings
+    data['description'] = data['description'].apply(lambda x: "".join(x) if isinstance(x,list) else str(x))
+
+    return data
+    
+
+def lemmatize_description(data)
+
     import nltk
-    import json
     import re
-    from os.path import join
     from nltk.corpus import stopwords
     from nltk.tokenize import word_tokenize
     from nltk.stem import WordNetLemmatizer
@@ -29,13 +37,6 @@ def parse_description(data):
         lemmatizer = WordNetLemmatizer()
         return [lemmatizer.lemmatize(w) for w in word_tokens]
 
-
-    # clean the summaries
-    data['description'] = data['description'].apply(clean_description)
-    
-    # flatten summary lists into strings
-    data['description'] = data['description'].apply(lambda x: "".join(x) if isinstance(x,list) else str(x))
-    
     stop_words = set(stopwords.words('english'))
 
     # convert to lower case
