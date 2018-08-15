@@ -65,6 +65,7 @@ def lemmatize_description(data):
 
     # lemmatize
     data['description'] = data['description'].apply(lambda x:lemmatize_text(x))
+    print(data.loc[0,'description'])
 
     return data
 
@@ -98,18 +99,42 @@ def clean_description(description):
 def process_descriptions(df, fpath=None, fname=None):
 
     from os.path import join
+    import pickle
             
     # clean the summaries
     data = standardize_description(df)
+    print(data)
 
     # lemmatize the summaries
     data = lemmatize_description(data)
+    type(data)
+
+    # convert to single string separated by spaces (for tfidf)
+    data['description'] = data['description'].apply(lambda x:' '.join(x))
+    print(data)
+    type(data)
+
+    # return as a list of descriptions
+    data = data['description'].tolist()
+    
+    # save if requested
+    if ((fpath!=None) and (fname!=None)):
+       pickle.dump(data, open(join(fpath,fname), 'wb'))
+
+
+def generate_tfidf(descriptions, fpath=None, fname=None):
+
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from os.path import join
+    import pickle
+
+    vectorizer = TfidfVectorizer()
+    response = vectorizer.fit(descriptions)
 
     # save if requested
     if ((fpath!=None) and (fname!=None)):
-        data.to_json(join(fpath,fname), orient='records')
+        pickle.dump(response, open(join(fpath,fname), 'wb'))
 
     # return as a list of descriptions
-    return data['description'].tolist()
-
+    return response
 

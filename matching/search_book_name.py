@@ -32,7 +32,7 @@ def search_id(gr_id):
     book_desc = id_soup.findAll('description')[0].get_text()
 
     # put into a dataframe to be consistent with the diverse book list
-    book_desc = pd.DataFrame(book_desc, columns = ['description']
+    book_desc = pd.DataFrame(data=[book_desc], columns=['description'])
     
     return book_desc
     
