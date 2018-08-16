@@ -30,4 +30,3 @@ def search_id(gr_id):
     book_desc = id_soup.findAll('description')[0].get_text()
     
     return book_desc
-    

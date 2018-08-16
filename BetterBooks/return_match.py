@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Aug 14 15:30:46 2018
-
 @author: pamela
 """
 
@@ -16,6 +15,7 @@ def return_match(book_title):
     from find_best_match import find_best_match
     from concise_output import concise_output
 
+
     # file_name = "/home/pamela/Documents/diverse_reading/diverse_data"
     # fileObject = open(file_name, 'rb')
     # diverse_data = pickle.load(fileObject)
@@ -23,6 +23,7 @@ def return_match(book_title):
 
     #load cleaned data- just descriptions
     file_name = '/home/ubuntu/diverse_reading/cleaned_diverse_books.sav'
+
     fileObject = open(file_name, 'rb')
     diverse_data = pickle.load(fileObject)
     fileObject.close()
@@ -43,6 +44,3 @@ def return_match(book_title):
     #diverse_desc = book_descriptions(diverse_data)
     match = find_best_match(desc_input, diverse_data, tf_idf_model)
     return concise_output(diverse_df.iloc[match])
-
-#return_match('moby dick')
-#book_title = 'moby dick'

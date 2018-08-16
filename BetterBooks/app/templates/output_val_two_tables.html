@@ -22,6 +22,7 @@
     <link href="starter-template.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -48,12 +49,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-        <a class="navbar-brand" href="/">Better Books</a>
+          <a class="navbar-brand" href="/">Better Books</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/about">About</a></li>
-
 <!--
             <li><a href="#contact">Contact</a></li>
 -->
@@ -65,21 +65,91 @@
 <br><br>
 
 <div class="container">
-
-	<div class="starter-template">
-		<h2>Better Books</h2>
-		<p>Put in a book you've enjoyed.</p>
-	</div>
+    <div class="starter-template">
+        <h2>Results</h2>
 
 
-	<form action="/output" method="GET">
-		<div class="form-group">
-			<label for="song_title">Book Title</label><label class=redtext> * </label>
+    </div> <!-- /.container-->
+
+    <div class="container">
+      <div class="starter-template">
+
+        <p class="lead">Here was your original book: {{user_book}}<br> </p>
+
+    </div>
+
+
+   </div> <!-- /.container-->
+
+
+
+
+  </div> <!-- /.container-->
+
+    <div class="container">
+      <div class="starter-template">
+        <p class="lead"> Can you help us improve our search results: which of the two lists of search results are more relevant to your query?<br> </p>
+      </div>
+      
+    <form action="/validation_button_1">
+        <input type="submit" value="Table 1" >
+        <input type="hidden" name="t1_choice" value="{{true_table,user_book}}">
+    </form>
+
+    <form action="/validation_button_2">
+        <input type="submit" value="Table 2" >
+        <input type="hidden" name="t2_choice" value="{{true_table,user_book}}">
+    </form>
+
+    </div>
+        <p class="lead">Table 1<br> </p>
+    </div>
+
+      <table class="table table-hover">
+      <tr><th>Book Title</th><th>Author</th><th>Description</th>
+
+      <tr>
+        <td>{{ table_1['Title'].iloc[0]}}</td>
+        <td>{{ table_1['Author'].iloc[0] }}</td>
+        <td>{{ table_1['Description'].iloc[0] }} </td></tr>
+      <tr>
+        <td>{{ table_1['Title'].iloc[1]}}</td>
+        <td>{{ table_1['Author'].iloc[1] }}</td>
+        <td>{{ table_1['Description'].iloc[1] }} </td></tr>
+      <tr>
+        <td>{{ table_1['Title'].iloc[2]}}</td>
+        <td>{{ table_1['Author'].iloc[2] }}</td>
+        <td>{{ table_1['Description'].iloc[2] }} </td></tr>
+      </table>
+
+    </div>
+        <p class="lead">Table 2<br> </p>
+    </div>
+
+      <table class="table table-hover">
+      <tr><th>Book Title</th><th>Author</th><th>Description</th>
+
+      <tr>
+          <td>{{ table_2['Title'].iloc[0]}}</td>
+          <td>{{ table_2['Author'].iloc[0] }}</td>
+          <td>{{ table_2['Description'].iloc[0] }} </td></tr>
+      <tr>
+          <td>{{ table_2['Title'].iloc[1]}}</td>
+          <td>{{ table_2['Author'].iloc[1] }}</td>
+          <td>{{ table_2['Description'].iloc[1] }} </td></tr>
+      <tr>
+          <td>{{ table_2['Title'].iloc[2]}}</td>
+          <td>{{ table_2['Author'].iloc[2] }}</td>
+          <td>{{ table_2['Description'].iloc[2] }} </td></tr>
+      </table>
+
+    <div class = "container">
+      <h3>Try another book</h3>
+      <form  action="/output" method="GET">
+        <div class="form-group">
+			<label for="book_title">Book Title</label><label class=redtext> * </label>
           <input type="text" id="book_title" name='book_title' placeholder="e.g. 1984">
-
         </div>
-
-
 
         <div>
             <label class=redtext><font size=1> *Required input </font></label>
@@ -88,18 +158,17 @@
         <div>
           <button type="submit" class="btn btn-default btn-lg">Find me books!</button>
         </div>
-
       </form>
-
-      <br><br>
-      Or, help us <a href="validation">validate our results</a>.
     </div>
-
-
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
 
-  </div> <!-- /.container-->
+
+
+
+      </div>
+
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
