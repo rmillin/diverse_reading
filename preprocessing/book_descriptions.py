@@ -34,6 +34,7 @@ def lemmatize_description(data):
 
     import nltk
     import re
+    import time
     from nltk.corpus import stopwords, wordnet
     from nltk.tokenize import word_tokenize
     from nltk.stem import WordNetLemmatizer
@@ -47,23 +48,30 @@ def lemmatize_description(data):
         lemmatizer = WordNetLemmatizer()
         # function to convert to POS usable by WordNetLemmatizer (from treebank tags returned by nltk.pos_tag)
         def get_wordnet_pos(treebank_tag):
-            if treebank_tag.startswith('J'):
-                return wordnet.ADJ
-            elif treebank_tag.startswith('V'):
-                return wordnet.VERB
-            elif treebank_tag.startswith('N'):
-                return wordnet.NOUN
-            elif treebank_tag.startswith('R'):
-                return wordnet.ADV
+            if treebank_tag[0]=='N':
+                return wn_noun
+            elif treebank_tag[0]=='V':
+                return wn_verb
+            elif treebank_tag[0]=='J':
+                return wn_adj
+            elif treebank_tag[0]=='R':
+                return wn_adv
             else:
-                return wordnet.NOUN # since this is anyway the default.
+                return wn_noun # since this is anyway the default.
             
         # tag POS of words, convert for lemmatizer, lemmatize
         pos_tag = nltk.pos_tag(word_tokens)
-        return [lemmatizer.lemmatize(word_tokens[ind], get_wordnet_pos(pos_tag[ind][1])) for ind in range(len(word_tokens))]
+
+        # convert to wordnet tags and lemmatize
+        indrange = range(len(word_tokens))
+        return [lemmatizer.lemmatize(word_tokens[ind], get_wordnet_pos(pos_tag[ind][1])) for ind in indrange]
         
 
     stop_words = set(stopwords.words('english'))
+    wn_noun = wordnet.NOUN
+    wn_verb = wordnet.VERB
+    wn_adj = wordnet.ADJ
+    wn_adv = wordnet.ADV
 
     # convert to lower case
     data['description'] = data['description'].apply(lambda x:x.lower())
@@ -81,7 +89,7 @@ def lemmatize_description(data):
     # lemmatize
     data['description'] = data['description'].apply(lambda x:lemmatize_text(x))
     print(data['description'])
- 
+  
     return data
 
 
@@ -115,7 +123,8 @@ def process_descriptions(df, fpath=None, fname=None):
 
     from os.path import join
     import pickle
-            
+    import time
+
     # clean the summaries
     data = standardize_description(df)
 
