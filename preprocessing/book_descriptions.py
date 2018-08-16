@@ -34,7 +34,7 @@ def lemmatize_description(data):
 
     import nltk
     import re
-    from nltk.corpus import stopwords
+    from nltk.corpus import stopwords, wordnet
     from nltk.tokenize import word_tokenize
     from nltk.stem import WordNetLemmatizer
 
@@ -45,7 +45,23 @@ def lemmatize_description(data):
         # right now this treats all words as nouns and only gets rid of plurals;
         # this can be changed by first getting the part of speech for each word
         lemmatizer = WordNetLemmatizer()
-        return [lemmatizer.lemmatize(w) for w in word_tokens]
+        # function to convert to POS usable by WordNetLemmatizer (from treebank tags returned by nltk.pos_tag)
+        def get_wordnet_pos(treebank_tag):
+            if treebank_tag.startswith('J'):
+                return wordnet.ADJ
+            elif treebank_tag.startswith('V'):
+                return wordnet.VERB
+            elif treebank_tag.startswith('N'):
+                return wordnet.NOUN
+            elif treebank_tag.startswith('R'):
+                return wordnet.ADV
+            else:
+                return wordnet.NOUN # since this is anyway the default.
+            
+        # tag POS of words, convert for lemmatizer, lemmatize
+        pos_tag = nltk.pos_tag(word_tokens)
+        return [lemmatizer.lemmatize(word_tokens[ind], get_wordnet_pos(pos_tag[ind][1])) for ind in range(len(word_tokens))]
+        
 
     stop_words = set(stopwords.words('english'))
 
@@ -60,9 +76,11 @@ def lemmatize_description(data):
 
     # remove stopwords
     data['description'] = data['description'].apply(lambda x:tokenize_text(x))
+    print(data['description'])
 
     # lemmatize
     data['description'] = data['description'].apply(lambda x:lemmatize_text(x))
+    print(data['description'])
  
     return data
 
