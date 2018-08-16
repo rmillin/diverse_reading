@@ -91,18 +91,15 @@
         <p class="lead"> Can you help us improve our search results: which of the two lists of search results are more relevant to your query?<br> </p>
       </div>
 
-    <form action="/validation_button_1">
-        <input type="submit" value="Table 1" >
-        <input type="hidden" name="t1_choice" value="{{true_table,user_book}}">
-    </form>
 
-    <form action="/validation_button_2">
-        <input type="submit" value="Table 2" >
-        <input type="hidden" name="t2_choice" value="{{true_table,user_book}}">
-    </form>
+    <div>
+<!--        <p class="lead">Table 1<br> </p> -->
+        <form action="/validation_button_1">
+            <input type="submit" value="Table 1" >
+            <input type="hidden" name="t1_choice" value="{{true_table,user_book}}">
+        </form>
+        <br>
 
-    </div>
-        <p class="lead">Table 1<br> </p>
     </div>
 
       <table class="table table-hover">
@@ -122,8 +119,13 @@
         <td>{{ table_1['Description'].iloc[2] }} </td></tr>
       </table>
 
-    </div>
-        <p class="lead">Table 2<br> </p>
+    <div>
+        <!-- <p class="lead">Table 2<br> </p> -->
+        <form action="/validation_button_2">
+            <input type="submit" value="Table 2" >
+            <input type="hidden" name="t2_choice" value="{{true_table,user_book}}">
+        </form>
+        <br>
     </div>
 
       <table class="table table-hover">
