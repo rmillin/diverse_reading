@@ -3,6 +3,8 @@ from app import app
 #from KaraokeCompass.Song_filter import filter_songs, song_listing
 from return_match import return_match
 
+import pandas as pd
+
 @app.route('/')
 @app.route('/input')
 def books_input():
@@ -27,8 +29,13 @@ def books_output_val():
     book_title = request.args.get('book_title')
     book_table = return_match(book_title)
 
+    random_book_table = pd.DataFrame()
+    random_book_table['Title'] = ['title1', 'title2', 'title3']
+    random_book_table['Author'] = ['author1', 'author2', 'author3']
+    random_book_table['Description'] = ['desc1', 'desc2', 'desc3']
+
     return render_template("output_val.html", book_recs=book_table,
-                           user_book=book_title)
+                           user_book=book_title, rand_recs=random_book_table)
 
 
 @app.route('/about')

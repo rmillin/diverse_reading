@@ -30,7 +30,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
     <style>
         .redtext {
                 color: red;
@@ -67,38 +67,41 @@
 <div class="container">
     <div class="starter-template">
         <h2>Results</h2>
-        
-        
+
+
     </div> <!-- /.container-->
 
     <div class="container">
       <div class="starter-template">
-      
+
         <p class="lead">Here was your original book: {{user_book}}<br> </p>
-        
+
     </div>
 
-        
+
    </div> <!-- /.container-->
 
-        
-        
-        
+
+
+
   </div> <!-- /.container-->
 
     <div class="container">
       <div class="starter-template">
         <p class="lead">Here are some similar books. We aim to suggest books written by authors from diverse backgrounds, that have main characters from diverse backgrounds, and/or that discuss topics related to diversity and equity. <br> </p>
-        
+
     </div>
 
       <table class="table table-hover">
-      <tr><th>Book Title</th><th>Author</th><th>Description</th></tr>
-    
-      <tr><td>{{ book_recs['Title'].iloc[0]}}</td><td>{{ book_recs['Author'].iloc[0] }}</td><td>{{ book_recs['Description'].iloc[0] }} </td></tr>
-      <tr><td>{{ book_recs['Title'].iloc[1]}}</td><td>{{ book_recs['Author'].iloc[1] }}</td><td>{{ book_recs['Description'].iloc[1] }} </td></tr>
-      <tr><td>{{ book_recs['Title'].iloc[2]}}</td><td>{{ book_recs['Author'].iloc[2] }}</td><td>{{ book_recs['Description'].iloc[2] }} </td></tr>
-   
+      <tr><th>Book Title</th><th>Author</th><th>Description</th><th>Book Title</th><th>Author</th><th>Description</th></tr>
+
+      <tr><td>{{ book_recs['Title'].iloc[0]}}</td><td>{{ book_recs['Author'].iloc[0] }}</td><td>{{ book_recs['Description'].iloc[0] }} </td>
+          <td>{{ rand_recs['Title'].iloc[0]}}</td><td>{{ rand_recs['Author'].iloc[0] }}</td><td>{{ rand_recs['Description'].iloc[0] }} </td></tr>
+      <tr><td>{{ book_recs['Title'].iloc[1]}}</td><td>{{ book_recs['Author'].iloc[1] }}</td><td>{{ book_recs['Description'].iloc[1] }} </td>
+          <td>{{ rand_recs['Title'].iloc[1]}}</td><td>{{ rand_recs['Author'].iloc[1] }}</td><td>{{ rand_recs['Description'].iloc[1] }} </td></tr>
+      <tr><td>{{ book_recs['Title'].iloc[2]}}</td><td>{{ book_recs['Author'].iloc[2] }}</td><td>{{ book_recs['Description'].iloc[2] }} </td>
+          <td>{{ rand_recs['Title'].iloc[2]}}</td><td>{{ rand_recs['Author'].iloc[2] }}</td><td>{{ rand_recs['Description'].iloc[2] }} </td></tr>
+
       </table>
 
     <div class = "container">
@@ -108,10 +111,10 @@
 			<label for="book_title">Book Title</label><label class=redtext> * </label>
           <input type="text" id="book_title" name='book_title' placeholder="e.g. 1984">
         </div>
-         
+
         <div>
             <label class=redtext><font size=1> *Required input </font></label>
-        </div> 
+        </div>
 
         <div>
           <button type="submit" class="btn btn-default btn-lg">Find me books!</button>
@@ -122,7 +125,7 @@
     <script src="../static/js/bootstrap.min.js"></script>
 
 
-    
+
 
       </div>
 
@@ -141,4 +144,3 @@
 
   </body>
 </html>
-
