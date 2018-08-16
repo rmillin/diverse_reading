@@ -22,20 +22,20 @@ def return_match(book_title):
     # fileObject.close()
 
     #load cleaned data- just descriptions
-    file_name = '/home/ubuntu/diverse_reading/cleaned_diverse_books.sav'
+    file_name = '../cleaned_diverse_books.sav'
 
     fileObject = open(file_name, 'rb')
     diverse_data = pickle.load(fileObject)
     fileObject.close()
 
     #load tf-idf model
-    file_name = '/home/ubuntu/diverse_reading/trained_tfidf.sav'
+    file_name = '../trained_tfidf.sav'
     fileObject = open(file_name, 'rb')
     tf_idf_model = pickle.load(fileObject)
     fileObject.close()
 
     #load diverse book dataframe
-    file_name = '/home/ubuntu/diverse_reading/diverse_books_merged.json'
+    file_name = '../diverse_books_merged.json'
     diverse_df = pd.read_json(file_name, orient='records')
 
     #clean desc_input- within find_best_match
