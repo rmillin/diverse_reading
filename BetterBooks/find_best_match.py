@@ -8,17 +8,26 @@ Created on Tue Aug 14 13:14:05 2018
 """
 
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
+from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
+from preprocessing import *
 
-def find_best_match(to_match, diverse_desc):
-    vectorizer = TfidfVectorizer()
-    to_match = str(to_match)
-    diverse_desc.insert(0,to_match)
-    #desc_ex = nondiv_ex + descriptions
-    tfidf = vectorizer.fit_transform(diverse_desc)
-    cosine_sim = linear_kernel(tfidf[0:1], tfidf).flatten()
+def find_best_match(to_match, diverse_desc, trained_tfidf):
+
+    # make into a dataframe for preprocessing
+    # could change to avoid this
+    to_match = pd.DataFrame(to_match,columns=['description'])
+     # preprocess
+    to_match_clean = process_descriptions(to_match)
+    # tfidf
+    to_match_tfidf = trained_tfidf.transform(to_match_clean)
+    diverse_tfidf = trained_tfidf.transform(diverse_desc)
+    # find most similar
+    cosine_sim = cosine_similarity(to_match_tfidf, diverse_tfidf).flatten()
     best_idx = cosine_sim.argsort()[-4:-1]
-    cosine_sim[best_idx]
+    # print(cosine_sim.shape)
+    # print(best_idx)
+    # print(cosine_sim.max())
+    # print(cosine_sim[best_idx])
 
-    #return diverse_desc[int(best_idx)]
     return best_idx
