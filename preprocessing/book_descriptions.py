@@ -42,6 +42,8 @@ def lemmatize_description(data):
         return [w for w in word_tokens if not w in stop_words]    
 
     def lemmatize_text(word_tokens):
+        # right now this treats all words as nouns and only gets rid of plurals;
+        # this can be changed by first getting the part of speech for each word
         lemmatizer = WordNetLemmatizer()
         return [lemmatizer.lemmatize(w) for w in word_tokens]
 
@@ -104,11 +106,9 @@ def process_descriptions(df, fpath=None, fname=None):
 
     # convert to single string separated by spaces (for tfidf)
     data['description'] = data['description'].apply(lambda x:' '.join(x))
-    print(type(data))
 
     # return as a list of descriptions
     data = data['description'].tolist()
-    print(type(data))
     
     # save if requested
     if ((fpath!=None) and (fname!=None)):

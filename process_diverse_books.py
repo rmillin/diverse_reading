@@ -9,7 +9,7 @@ the summaries
 import pandas as pd
 from preprocessing import *
 
-savename = 'data/diverse_books_merged.json'
+savename = '/Users/rmillin/Documents/Insight/diverse-reading/data/diverse_books_merged.json'
 
 df = pd.read_json(savename)
 

@@ -13,7 +13,7 @@ import pandas as pd
 from os.path import join
 
 # book for testing
-test_name = 'War and Peace'
+test_name = 'Moby Dick'
 
 # get the book description
 desc_input = matching.search_id(matching.search_name(test_name))
@@ -39,7 +39,7 @@ data_fname = 'diverse_books_merged.json'
 filename = join(data_fpath, data_fname)
 diverse_data = pd.read_json(filename, orient='records')
 
-print(diverse_data.iloc[match])
+print(diverse_data.iloc[match,:])
 
 matching.concise_output(diverse_data.iloc[match])
 
