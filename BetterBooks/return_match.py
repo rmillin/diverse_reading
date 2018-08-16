@@ -2,14 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Aug 14 15:30:46 2018
-
 @author: pamela
 """
 
 def return_match(book_title):
     import pickle
 
-    file_name = "/home/pamela/Documents/diverse_reading/diverse_data"
+    file_name = "../diverse_data"
     fileObject = open(file_name, 'rb')
     diverse_data = pickle.load(fileObject)
     fileObject.close()
