@@ -4,6 +4,9 @@ from app import app
 from return_match import return_match
 from return_random_match import return_random_match
 
+from pathlib import Path
+import datetime as dt
+
 import pandas as pd
 
 @app.route('/')
@@ -28,9 +31,11 @@ def books_input_val():
 def button1():
     print(request.args['t1_choice'].split(','))
     if request.args['t1_choice'].split(',')[0][1:] == '1':
-        print('user selected on table 1: the recomended results')
+        print('user selected on table 1: the recommended results')
+        record_validation_answer(True)
     else:
         print('user selected on table 1: the random results')
+        record_validation_answer(False)
     return('Thanks!')
 
 #Button Pressed = 0        
@@ -38,14 +43,32 @@ def button1():
 def button2():
     print(request.args['t2_choice'].split(','))
     if request.args['t2_choice'].split(',')[0][1:] == '2':
-        print('user selected on table 2: the recomended results')
+        print('user selected on table 2: the recommended results')
+        record_validation_answer(True)
     else:
         print('user selected on table 2: the random results')
+        record_validation_answer(False)
     return('Thanks!')
 
     #if request.method == "GET":
     #    return render_template("button.html", ButtonPressed = ButtonPressed)
     #return redirect(url_for('button'))
+
+# Input: df (pd.DataFrame)
+# Returns: that DataFrame with any columns containing 'Unnamed' removed.
+def remove_unnamed_cols(df):
+    unnamed_cols = [col for col in df.columns if col.find('Unnamed') != -1]
+    return df.drop(unnamed_cols, 1)
+
+# Function that stores validation choices in a CSV file
+def record_validation_answer(correct, book_title='', validation_log='validation_log.csv'):
+    if not Path(validation_log).exists():
+        new_row_df = pd.DataFrame({'time': [dt.datetime.now()], 'correct': [correct], 'title': [book_title]})
+        new_row_df.to_csv(validation_log)
+    else:
+        log_df = remove_unnamed_cols(pd.read_csv(validation_log))
+        log_df.loc[len(log_df)] = [dt.datetime.now(), correct, book_title]
+        log_df.to_csv(validation_log)
 
 @app.route('/output_val')
 def books_output_val():
