@@ -34,7 +34,7 @@ def button1():
         print('user selected on table 1: the recommended results')
         record_validation_answer(True)
     else:
-        print('user selected on table 1: the random results')
+        print('user selected on table 2: the random results')
         record_validation_answer(False)
     return('Thanks!')
 
@@ -46,7 +46,7 @@ def button2():
         print('user selected on table 2: the recommended results')
         record_validation_answer(True)
     else:
-        print('user selected on table 2: the random results')
+        print('user selected on table 1: the random results')
         record_validation_answer(False)
     return('Thanks!')
 
