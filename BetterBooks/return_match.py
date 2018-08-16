@@ -8,9 +8,11 @@ Created on Tue Aug 14 15:30:46 2018
 
 def return_match(book_title):
     import pickle
-
+    import pandas as pd
+    import preprocessing
+    #import matching
     from search_book_name import search_id, search_name
-    from book_descriptions import book_descriptions
+    #from book_descriptions import book_descriptions
     from find_best_match import find_best_match
     from concise_output import concise_output
 
@@ -36,9 +38,11 @@ def return_match(book_title):
     diverse_df = pd.read_json(file_name, orient='records')
 
     #clean desc_input- within find_best_match
+    desc_input = search_id(search_name(book_title))
 
     #diverse_desc = book_descriptions(diverse_data)
-    match = find_best_match(desc_input, diverse_desc)
-    return concise_output(diverse_data.iloc[match])
+    match = find_best_match(desc_input, diverse_data, tf_idf_model)
+    return concise_output(diverse_df.iloc[match])
 
-
+#return_match('moby dick')
+#book_title = 'moby dick'

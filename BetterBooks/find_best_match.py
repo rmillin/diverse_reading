@@ -12,11 +12,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 from preprocessing import *
 
-def find_best_match(to_match, diverse_desc, trained_tfidf):
+def find_best_match(to_match_str, diverse_desc, trained_tfidf):
 
     # make into a dataframe for preprocessing
     # could change to avoid this
-    to_match = pd.DataFrame(to_match,columns=['description'])
+    to_match = pd.DataFrame()
+    to_match['description'] = [to_match_str]#,columns=['description'])
      # preprocess
     to_match_clean = process_descriptions(to_match)
     # tfidf
