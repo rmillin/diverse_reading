@@ -22,6 +22,7 @@ for num in range(0,7):
     data_temp = pd.read_json(file_name)
     diverse_data = pd.concat([diverse_data, data_temp], axis=0)
 
+
 non_diverse = pd.read_json('data/western_ya_0_01_25.json')
 for num in range(1,2):
     file_name = 'data/western_ya_' +str(num) + '_01_25.json'
