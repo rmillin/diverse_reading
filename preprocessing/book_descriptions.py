@@ -49,24 +49,19 @@ def lemmatize_description(data):
 
     # convert to lower case
     data['description'] = data['description'].apply(lambda x:x.lower())
-    print(data.loc[0,'description'])
 
     # eliminate numbers
     data['description'] = data['description'].apply(lambda x:re.sub("[\d]", " ",  x))
-    print(data.loc[0,'description'])
 
     # tokenize
     data['description'] = data['description'].apply(lambda x:re.sub("[^\w]", " ",  x).split())
-    print(data.loc[0,'description'])
 
     # remove stopwords
     data['description'] = data['description'].apply(lambda x:tokenize_text(x))
-    print(data.loc[0,'description'])
 
     # lemmatize
     data['description'] = data['description'].apply(lambda x:lemmatize_text(x))
-    print(data.loc[0,'description'])
-
+ 
     return data
 
 
@@ -103,23 +98,23 @@ def process_descriptions(df, fpath=None, fname=None):
             
     # clean the summaries
     data = standardize_description(df)
-    print(data)
 
     # lemmatize the summaries
     data = lemmatize_description(data)
-    type(data)
 
     # convert to single string separated by spaces (for tfidf)
     data['description'] = data['description'].apply(lambda x:' '.join(x))
-    print(data)
-    type(data)
+    print(type(data))
 
     # return as a list of descriptions
     data = data['description'].tolist()
+    print(type(data))
     
     # save if requested
     if ((fpath!=None) and (fname!=None)):
        pickle.dump(data, open(join(fpath,fname), 'wb'))
+
+    return data
 
 
 def generate_tfidf(descriptions, fpath=None, fname=None):
