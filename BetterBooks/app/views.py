@@ -36,7 +36,7 @@ def button1():
     else:
         print('user selected on table 2: the random results')
         record_validation_answer(False)
-    return('Thanks!')
+    return render_template("input_val.html")
 
 #Button Pressed = 0        
 @app.route('/validation_button_2')
@@ -48,7 +48,7 @@ def button2():
     else:
         print('user selected on table 1: the random results')
         record_validation_answer(False)
-    return('Thanks!')
+    return render_template("input_val.html")
 
     #if request.method == "GET":
     #    return render_template("button.html", ButtonPressed = ButtonPressed)

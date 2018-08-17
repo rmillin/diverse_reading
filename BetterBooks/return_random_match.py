@@ -12,11 +12,13 @@ def return_random_match(book_table = None,num_books = 3):
     list,if book_table is given the random list will not include
     the books in book_table"""
     import pickle
+    import pandas as pd
 
-    file_name = "../diverse_data"
-    fileObject = open(file_name, 'rb')
-    diverse_data = pickle.load(fileObject)
-    fileObject.close()
+    file_name = '../diverse_books_merged.json'
+    #fileObject = open(file_name, 'rb')
+    #diverse_data = pickle.load(fileObject)
+   # fileObject.close()
+    diverse_data  = pd.read_json(file_name, orient='records')
 
     from concise_output import concise_output
     if book_table is None:
