@@ -14,17 +14,17 @@ import pandas as pd
 from os.path import join
 
 # book for testing
-test_name = 'Moby Dick'
+test_name = 'lord of the flies'
 
 # get the book description
 desc_input = matching.search_id(matching.search_name(test_name))
 
-# load the trained tfidf model
+# load the trained lda model
 data_fpath = '/Users/rmillin/Documents/Insight/diverse-reading/data'
-tfidf_fname = 'trained_tfidf.sav'
-filename = join(data_fpath, tfidf_fname)
+pipeline_fname = 'lsa_pipeline.sav'
+filename = join(data_fpath, pipeline_fname)
 with open(filename, 'rb') as pickle_file:
-    trained_tfidf = pickle.load(pickle_file)
+    lsa_pipeline = pickle.load(pickle_file)
 
 # load in the cleaned descriptions of diverse books
 data_fname = 'cleaned_diverse_books.sav' # list
@@ -33,12 +33,13 @@ with open(filename, 'rb') as pickle_file:
     diverse_data = pickle.load(pickle_file)
 
 # find the best match from the diverse book descriptions
-match = matching.find_best_match(desc_input, diverse_data, trained_tfidf)
+match = matching.find_best_match(desc_input, diverse_data, lsa_pipeline)
         
 data_fname = 'diverse_books_merged.json'
 filename = join(data_fpath, data_fname)
 diverse_data = pd.read_json(filename, orient='records')
 
-print(diverse_data.iloc[match,:])
+for ind in match:
+    print(diverse_data.loc[diverse_data.index[ind],'description'])
 
 matching.concise_output(diverse_data.iloc[match])
