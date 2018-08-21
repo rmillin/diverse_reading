@@ -23,16 +23,15 @@ def return_match(book_title):
 
     #load cleaned data- just descriptions
     file_name = '../cleaned_diverse_books.sav'
-
     fileObject = open(file_name, 'rb')
     diverse_data = pickle.load(fileObject)
     fileObject.close()
 
-    #load tf-idf model
-    file_name = '../trained_tfidf.sav'
-    fileObject = open(file_name, 'rb')
-    tf_idf_model = pickle.load(fileObject)
-    fileObject.close()
+    # load the trained lda model
+    pipeline_fname = '../lsa_pipeline.sav'
+    filename = join(data_fpath, pipeline_fname)
+    with open(filename, 'rb') as pickle_file:
+        lsa_pipeline = pickle.load(pickle_file)
 
     #load diverse book dataframe
     file_name = '../diverse_books_merged.json'
@@ -42,5 +41,5 @@ def return_match(book_title):
     desc_input = search_id(search_name(book_title))
 
     #diverse_desc = book_descriptions(diverse_data)
-    match = find_best_match(desc_input, diverse_data, tf_idf_model)
+    match = matching.find_best_match(desc_input, diverse_data, lsa_pipeline)
     return concise_output(diverse_df.iloc[match])

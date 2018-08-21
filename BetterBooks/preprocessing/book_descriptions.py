@@ -185,33 +185,64 @@ def clean_description(description):
 
 
 
-def process_descriptions(df, fpath=None, fname=None):
+def perform_lsa(data, n_components, lsa_pipeline=None, fpath=None, pipeline_fname=None): 
+    from sklearn.decomposition import TruncatedSVD
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.feature_extraction.text import TfidfTransformer
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import Normalizer
+    from os.path import join
+    import pickle
+
+    if ((lsa_pipeline==None) and (fpath!=None) and (pipeline_fname!=None)):
+        # create pipeline for performing tf-idf and lsa
+        vectorizer = TfidfVectorizer(max_df=0.5, min_df=10) # words occur in fewer than half of the documents and at least 10 documents
+        svd = TruncatedSVD(n_components)
+        normalizer = Normalizer(copy=False)
+        lsa_pipeline = make_pipeline(vectorizer, svd, normalizer)
+
+        # perform LSA pipeline
+        lsa_pipeline.fit(data['description'])
+        pickle.dump(lsa_pipeline, open(join(fpath,pipeline_fname), 'wb'))
+
+    transformed_data = lsa_pipeline.transform(data['description'])
+
+    return transformed_data, lsa_pipeline
+
+
+
+def process_descriptions(df, pipeline=None, fpath=None, fname=None, pipeline_fname=None):
+
+    print('datatype')
+    print(df.loc[0,'description'])
 
     from os.path import join
     import pickle
     import time
 
-    
     # clean the summaries
     data = standardize_description(df)
 
+    """
     # lemmatize the summaries
-    data = stem_description(data)
+    data = stem_description(df)
     print('done stemming')
 
-    # convert to single string separated by spaces (for tfidf)
-    data['description'] = data['description'].apply(lambda x:' '.join(x))
+    """
 
-    # return as a list of descriptions
-    data = data['description'].tolist()
-    
-    # save if requested
+    # preprocess for LSA
+    data = preprocess_lsa(data)
     if ((fpath!=None) and (fname!=None)):
-       pickle.dump(data, open(join(fpath,fname), 'wb'))
+        pickle.dump(data, open(join(fpath,fname), 'wb'))
 
-    return data
+    # lsa pipeline
+    n_components = 50
+    transformed_data = perform_lsa(data, n_components, pipeline, fpath, pipeline_fname)
+
+    return transformed_data
 
 
+"""
 def generate_tfidf(descriptions, fpath=None, fname=None):
 
     from sklearn.feature_extraction.text import TfidfVectorizer
@@ -227,4 +258,6 @@ def generate_tfidf(descriptions, fpath=None, fname=None):
 
     # return as a list of descriptions
     return response
+"""
+
 
